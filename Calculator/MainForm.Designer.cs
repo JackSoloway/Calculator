@@ -63,7 +63,6 @@
             this.textBoxEntry.ReadOnly = true;
             this.textBoxEntry.Size = new System.Drawing.Size(280, 29);
             this.textBoxEntry.TabIndex = 0;
-            this.textBoxEntry.Text = "0";
             this.textBoxEntry.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // buttonOne
@@ -242,6 +241,7 @@
             this.textBoxResult.Size = new System.Drawing.Size(280, 29);
             this.textBoxResult.TabIndex = 15;
             this.textBoxResult.TabStop = false;
+            this.textBoxResult.Text = "0";
             this.textBoxResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // buttonEqually

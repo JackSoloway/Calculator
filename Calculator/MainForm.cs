@@ -79,44 +79,9 @@ namespace Calculator
             entryFieldAddText("9");
         }
 
-        private void buttonClear_Click(object sender, EventArgs e)
-        {
-            textBoxEntry.Text = "0";
-        }
-
-        private void buttonBackspace_Click(object sender, EventArgs e)
-        {
-            if (textBoxEntry.Text.Length > 1)
-                textBoxEntry.Text = textBoxEntry.Text.Remove(textBoxEntry.Text.Length - 1, 1);
-            else
-                textBoxEntry.Text = "0";
-        }
-
         private void buttonPlus_Click(object sender, EventArgs e)
         {
             entryFieldAddText("+");
-        }
-
-        private void buttonEqually_Click(object sender, EventArgs e)
-        {
-            /*if (!textBoxEntry.Text.Contains("="))
-            {
-                answer = StringExpressionSolver.GetAnswer(textBoxEntry.Text);
-                textBoxEntry.Text += "=";
-                textBoxResult.Text = answer.ToString();
-            }*/
-            //НУЖНО прогнать цикл на поиск скобок и если есть сразу срываться
-            //с цикла и начинать подсчет открывающих и закрывающих скобок 
-            //и использовать метод со скобками, если их количество равно
-            //если нет скобок, то без них
-            //НУЖНО добавить - если в поле просто число, то ничего не делать
-            if (!textBoxEntry.Text.Contains("="))
-            {
-                //answer = StringExpressionSolver.GetAnswer(textBoxEntry.Text);
-                answer = StringExpressionSolver.GetAnswerWithBrackets(textBoxEntry.Text);
-                textBoxEntry.Text += "=";
-                textBoxResult.Text = answer.ToString();
-            }
         }
 
         private void buttonMultiplication_Click(object sender, EventArgs e)
@@ -136,79 +101,17 @@ namespace Calculator
 
         private void buttonOpBracket_Click(object sender, EventArgs e)
         {
-            char[] arrayChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ')', ',' };
-            if (textBoxEntry.Text == "0")
-            {
-                textBoxEntry.Text = "(";
-            }
-            else if (!arrayChars.Contains(textBoxEntry.Text[textBoxEntry.Text.Length - 1]))
-            {
-                textBoxEntry.Text += "(";
-            }
+            entryFieldAddText("(");
         }
 
         private void buttonClBracket_Click(object sender, EventArgs e)
         {
-            //НУЖНО доделать ставить закрывающую скобку после чисел, только если в строке есть
-            //открывающая скобка и математические операторы
-            char[] arrayChars = { '(', ',', '+', '-', '*', '/' };
-            if (!arrayChars.Contains(textBoxEntry.Text[textBoxEntry.Text.Length - 1]) &&
-                textBoxEntry.Text != "0")
-            {
-                textBoxEntry.Text += ")";
-            }
-            
+            entryFieldAddText(")");
         }
 
         private void buttonComma_Click(object sender, EventArgs e)
         {
-            char[] arrayNums = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-            char[] arrayChars = { '-', '+', '*', '/', '(' };
-            if (arrayNums.Contains(textBoxEntry.Text[textBoxEntry.Text.Length - 1]))
-            {
-                string[] members = textBoxEntry.Text.Split(new char[] { '-', '+', '*', '/', '(', ')' },
-                    StringSplitOptions.RemoveEmptyEntries);
-                if (!members[members.Length - 1].Contains(","))
-                    textBoxEntry.Text += ",";
-            }
-            else if (arrayChars.Contains(textBoxEntry.Text[textBoxEntry.Text.Length - 1]))
-            {
-                    textBoxEntry.Text += "0,";
-            }
-        }
-
-        private void entryFieldAddText(string sent)
-        {
-            //дописать если стоит ноль, ничем не закрытый, то ноль убрать
-            textBoxEntry.Text = StringExpressionChanger.AddToExpression(textBoxEntry.Text,
-                textBoxEntry.SelectionStart, sent);
-            textBoxEntry.SelectionStart = textBoxEntry.Text.Length;
-            textBoxEntry.SelectionLength = 0;
-            textBoxEntry.Focus();
-        }
-
-        private void entryFieldAddingOperator(char sent)
-        {
-            /*char[] arrayChar = { '*', '+', '-', '/' };
-            if (arrayChar.Contains(textBoxEntry.Text[textBoxEntry.Text.Length - 1]))
-            {
-                textBoxEntry.Text = textBoxEntry.Text.Remove(textBoxEntry.Text.Length - 1);
-                textBoxEntry.Text += sent;
-            }
-            else if (textBoxEntry.Text[textBoxEntry.Text.Length - 1] == ',' ||
-                textBoxEntry.Text[textBoxEntry.Text.Length - 1] == '(')
-            {
-                //так и задумано - ничего не делаем
-            }
-            else
-            {
-                textBoxEntry.Text += sent;
-            }*/
-        }
-
-        private void makeNumberNegative ()
-        {
-            //если поле ввода не содержит ничего, кроме цифр и запятой
+            entryFieldAddText(",");
         }
 
         private void buttonMoveLeft_Click(object sender, EventArgs e)
@@ -219,6 +122,67 @@ namespace Calculator
         private void buttonMoveRight_Click(object sender, EventArgs e)
         {
             MoveCursor(false);
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            textBoxEntry.Clear();
+            textBoxEntry.SelectionStart = textBoxEntry.Text.Length;
+            textBoxEntry.SelectionLength = 0;
+            textBoxEntry.Focus();
+        }
+
+        private void buttonBackspace_Click(object sender, EventArgs e)
+        {
+            int pos = textBoxEntry.SelectionStart;
+            if (textBoxEntry.SelectionStart > 0)
+            {   
+                textBoxEntry.Text = StringExpressionChanger.DelFromExpression(textBoxEntry.Text,
+                    textBoxEntry.SelectionStart);
+                
+                textBoxEntry.SelectionStart = pos - 1;
+                textBoxEntry.SelectionLength = 0;
+                textBoxEntry.Focus();
+            }
+            else
+            {
+                textBoxEntry.SelectionStart = pos;
+                textBoxEntry.SelectionLength = 0;
+                textBoxEntry.Focus();
+            }
+        }
+
+        private void buttonEqually_Click(object sender, EventArgs e)
+        {
+            /*if (!textBoxEntry.Text.Contains("="))
+            {
+                answer = StringExpressionSolver.GetAnswer(textBoxEntry.Text);
+                textBoxEntry.Text += "=";
+                textBoxResult.Text = answer.ToString();
+            }*/
+            //сделать проверку синтаксиса, в случае ошибок выводить предупреждение
+            //НУЖНО прогнать цикл на поиск скобок и если есть сразу срываться
+            //с цикла и начинать подсчет открывающих и закрывающих скобок 
+            //и использовать метод со скобками, если их количество равно
+            //если нет скобок, то без них
+            //НУЖНО добавить - если в поле просто число, то ничего не делать
+            if (!textBoxEntry.Text.Contains("="))
+            {
+                //answer = StringExpressionSolver.GetAnswer(textBoxEntry.Text);
+                answer = StringExpressionSolver.GetAnswerWithBrackets(textBoxEntry.Text);
+                textBoxEntry.Text += "=";
+                textBoxResult.Text = answer.ToString();
+            }
+        }
+
+        private void entryFieldAddText(string sent)
+        {
+            int pos = textBoxEntry.SelectionStart;
+            textBoxEntry.Text = StringExpressionChanger.AddToExpression(textBoxEntry.Text,
+                textBoxEntry.SelectionStart, sent);
+            textBoxEntry.SelectionStart = pos + 1;
+            textBoxEntry.SelectionLength = 0;
+            textBoxEntry.Focus();
         }
 
         private void MoveCursor (bool toLeft)
