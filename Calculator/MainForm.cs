@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Solver;
-using TextChanger;
+using SpellingChecker;
 
 namespace Calculator
 {
@@ -134,19 +134,17 @@ namespace Calculator
 
         private void buttonBackspace_Click(object sender, EventArgs e)
         {
-            int pos = textBoxEntry.SelectionStart;
+            int position = textBoxEntry.SelectionStart;
             if (textBoxEntry.SelectionStart > 0)
             {   
-                textBoxEntry.Text = StringExpressionChanger.DelFromExpression(textBoxEntry.Text,
-                    textBoxEntry.SelectionStart);
-                
-                textBoxEntry.SelectionStart = pos - 1;
+                textBoxEntry.Text = textBoxEntry.Text.Remove(position - 1, 1);
+                textBoxEntry.SelectionStart = position - 1;
                 textBoxEntry.SelectionLength = 0;
                 textBoxEntry.Focus();
             }
             else
             {
-                textBoxEntry.SelectionStart = pos;
+                textBoxEntry.SelectionStart = position;
                 textBoxEntry.SelectionLength = 0;
                 textBoxEntry.Focus();
             }
@@ -166,21 +164,42 @@ namespace Calculator
             //и использовать метод со скобками, если их количество равно
             //если нет скобок, то без них
             //НУЖНО добавить - если в поле просто число, то ничего не делать
-            if (!textBoxEntry.Text.Contains("="))
+
+            //цикл подсчёта открывающих и закрывающих скобок
+            int opBr = 0, clBr = 0;
+            for (int i = 0; i < textBoxEntry.Text.Length; i++)
+            {
+                if (textBoxEntry.Text[i] == '(')
+                    opBr++;
+                if (textBoxEntry.Text[i] == ')')
+                    clBr++;
+            }
+
+            int position = textBoxEntry.SelectionStart;
+
+            if (!textBoxEntry.Text.Contains("=") && opBr == clBr && 
+                !CorrectSpellingExpressionChecker.CheckCorrectSpellingExpression(textBoxEntry.Text))
             {
                 //answer = StringExpressionSolver.GetAnswer(textBoxEntry.Text);
                 answer = StringExpressionSolver.GetAnswerWithBrackets(textBoxEntry.Text);
                 textBoxEntry.Text += "=";
                 textBoxResult.Text = answer.ToString();
             }
+            else
+            {
+                MessageBox.Show("Syntax error!", "Attention!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBoxEntry.SelectionStart = position;
+                textBoxEntry.SelectionLength = 0;
+                textBoxEntry.Focus();
+            }
         }
 
         private void entryFieldAddText(string sent)
         {
-            int pos = textBoxEntry.SelectionStart;
-            textBoxEntry.Text = StringExpressionChanger.AddToExpression(textBoxEntry.Text,
-                textBoxEntry.SelectionStart, sent);
-            textBoxEntry.SelectionStart = pos + 1;
+            int position = textBoxEntry.SelectionStart;
+            textBoxEntry.Text = textBoxEntry.Text.Insert(position, sent);
+            textBoxEntry.SelectionStart = position + 1;
             textBoxEntry.SelectionLength = 0;
             textBoxEntry.Focus();
         }
@@ -199,6 +218,24 @@ namespace Calculator
             }
             textBoxEntry.SelectionLength = 0;
             textBoxEntry.Focus();
+        }
+
+        private bool CheckCorrectSpelling ()
+        {
+            bool check = false;
+            //неравное количество открывающих и закрывающих скобок
+            //начинается или заканчивается на оператор (кроме минуса), запятую
+            //начинается на закрывающую скобку
+            //заканчивается на открывающую скобку
+
+
+            for (int i = 0; i < textBoxEntry.Text.Length - 1; i++)
+            {
+                if (textBoxEntry.Text[i] == '(')
+                    check = true;
+            }
+
+            return check;
         }
     }
 }

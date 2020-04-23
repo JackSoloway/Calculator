@@ -84,9 +84,9 @@
       <Project>{28c650c4-b6b8-4a6f-92fe-71a0fdc7cc10}</Project>
       <Name>Solver</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TextChanger\TextChanger.csproj">
-      <Project>{b7c91ea6-c58b-4f5c-b44b-652fa6fa3f5c}</Project>
-      <Name>TextChanger</Name>
+    <ProjectReference Include="..\SpellingChecker\SpellingChecker.csproj">
+      <Project>{42a86846-4ad0-4b61-8596-18f315e704ad}</Project>
+      <Name>SpellingChecker</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

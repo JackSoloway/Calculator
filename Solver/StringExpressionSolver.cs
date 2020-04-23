@@ -10,7 +10,7 @@ namespace Solver
     {
         /// <summary>
         /// Вычисляет выражение, представленное в формате string,
-        /// без пробелов и без знака "=" в конце
+        /// без пробелов и без знака "=" в конце.
         /// </summary>
         /// <param name="incomingExpression">Выражение</param>
         /// <returns>Ответ (тип double)</returns>
@@ -70,8 +70,8 @@ namespace Solver
                         }
                     }
                 }
-                //если какая-либо операция была произведена, 
-                //то переписываем и сокращаем массив
+                // Если какая-либо операция была произведена, 
+                // то переписываем и сокращаем массив.
                 if (rewriteArray)
                 {
                     expressionInArray[numberReplace] = Convert.ToString(result);
@@ -79,16 +79,15 @@ namespace Solver
                     {
                         expressionInArray[k] = expressionInArray[k + 2];
                     }
-                    //сдвинули массив, теперь обрезаем его
+                    // Сдвинули массив, теперь обрезаем его.
                     Array.Resize(ref expressionInArray, expressionInArray.Length - 2);
                     rewriteArray = false;
                 }
             }
-
             return double.Parse(expressionInArray[0]); ;
         }
 
-        //метод парсит выражение из строки в массив типа string[]
+        // Метод парсит выражение из строки в массив типа string[].
         static string[] ParserStringExpression(string incomingExpression)
         {
             string[] operands = incomingExpression.Split(new char[] { '-', '+', '*', '/' },
@@ -97,10 +96,10 @@ namespace Solver
                 { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' , ','},
                 StringSplitOptions.RemoveEmptyEntries);
 
-            //конечный массив,в котором будет разбитая строчка
+            // Конечный массив,в котором будет разбитая строчка.
             string[] expressionInArray = new string[operands.Length + operators.Length];
 
-            //заполнение конечного массива returnArray[] по порядку
+            // Заполнение конечного массива returnArray[] по порядку.
             int d = 0;
             for (int i = 0, j = 1, k = 0; i < expressionInArray.Length; i += 2, j += 2, k++)
             {
@@ -111,7 +110,7 @@ namespace Solver
             return expressionInArray;
         }
 
-        //метод, возвращающий количество операторов умножения и деления
+        // Метод, возвращающий количество операторов умножения и деления.
         static int GetNumberMultAndDiv(string[] expressionInArray)
         {
             int count = 0;
@@ -123,7 +122,7 @@ namespace Solver
             return count;
         }
 
-        //метод, возвращающий количество операторов сложения и вычитания
+        // Метод, возвращающий количество операторов сложения и вычитания.
         static int GetNumberSumAndSub(string[] expressionInArray)
         {
             int count = 0;
@@ -135,8 +134,8 @@ namespace Solver
             return count;
         }
 
-        //метод вычленяет выражение в скобках, 
-        //затем отправляет на решение и переписывает строку с выражением
+        // Метод вычленяет выражение в скобках, 
+        // затем отправляет на решение и переписывает строку с выражением.
         public static double GetAnswerWithBrackets(string incomingExpression)
         {
             double answer = 0;
@@ -145,17 +144,17 @@ namespace Solver
             {
                 string tempStr = "";
                 double tempAns = 0;
-                //следующий цикл стартует со следующей позиции, указанной в массиве позиций
-                //открывающих скобок, растёт на 1 каждую иттерацию
-                //и останавливается, когда находит ближайшую закрывающую скобку
+                // Следующий цикл стартует со следующей позиции, указанной в массиве позиций
+                // открывающих скобок, растёт на 1 каждую иттерацию
+                // и останавливается, когда находит ближайшую закрывающую скобку.
                 for (int j = PosOB[PosOB.Length - 1 - i] + 1; incomingExpression[j] != ')'; j++)
                 {
                     tempStr += incomingExpression[j];
                 }
                 tempAns = GetAnswer(tempStr);
-                //тут надо переписать incomingExpression и на место "("
-                //воткнуть answer и сократить incomingExpression
-                //на tempStr.Length + 2 позиций
+                // Тут надо переписать incomingExpression и на место "("
+                // воткнуть answer и сократить incomingExpression
+                // на tempStr.Length + 2 позиций.
                 incomingExpression = incomingExpression.Remove(PosOB[PosOB.Length - 1 - i],
                     tempStr.Length + 2);
                 incomingExpression = incomingExpression.Insert(PosOB[PosOB.Length - 1 - i],
@@ -165,7 +164,7 @@ namespace Solver
             return answer;
         }
 
-        //метод считает и возвращает массив с позициями "(" в строке
+        // Метод считает и возвращает массив с позициями "(" в строке.
         static int[] PositionsOpeningBrackets(string incomingExpression)
         {
             int[] array = new int[0];
@@ -180,7 +179,7 @@ namespace Solver
             return array;
         }
 
-        //метод считает и возвращает сколько символов ")" в строке
+        // Метод считает и возвращает сколько символов ")" в строке.
         int CounterClosingBrackets(string incomingExpression)
         {
             int count = 0;

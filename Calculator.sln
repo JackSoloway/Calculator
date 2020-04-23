@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solver", "Solver\Solver.csproj", "{28C650C4-B6B8-4A6F-92FE-71A0FDC7CC10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextChanger", "TextChanger\TextChanger.csproj", "{B7C91EA6-C58B-4F5C-B44B-652FA6FA3F5C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpellingChecker", "SpellingChecker\SpellingChecker.csproj", "{42A86846-4AD0-4B61-8596-18F315E704AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{28C650C4-B6B8-4A6F-92FE-71A0FDC7CC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28C650C4-B6B8-4A6F-92FE-71A0FDC7CC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28C650C4-B6B8-4A6F-92FE-71A0FDC7CC10}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7C91EA6-C58B-4F5C-B44B-652FA6FA3F5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7C91EA6-C58B-4F5C-B44B-652FA6FA3F5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7C91EA6-C58B-4F5C-B44B-652FA6FA3F5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7C91EA6-C58B-4F5C-B44B-652FA6FA3F5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42A86846-4AD0-4B61-8596-18F315E704AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42A86846-4AD0-4B61-8596-18F315E704AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42A86846-4AD0-4B61-8596-18F315E704AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42A86846-4AD0-4B61-8596-18F315E704AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
