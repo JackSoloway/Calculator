@@ -42,7 +42,6 @@
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonBackspace = new System.Windows.Forms.Button();
             this.buttonPlus = new System.Windows.Forms.Button();
-            this.labelTopField = new System.Windows.Forms.Label();
             this.textBoxResult = new System.Windows.Forms.TextBox();
             this.buttonEqually = new System.Windows.Forms.Button();
             this.buttonMultiplication = new System.Windows.Forms.Button();
@@ -212,7 +211,7 @@
             // buttonPlus
             // 
             this.buttonPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonPlus.Location = new System.Drawing.Point(186, 279);
+            this.buttonPlus.Location = new System.Drawing.Point(185, 388);
             this.buttonPlus.Name = "buttonPlus";
             this.buttonPlus.Size = new System.Drawing.Size(45, 30);
             this.buttonPlus.TabIndex = 13;
@@ -220,17 +219,6 @@
             this.buttonPlus.Text = "+";
             this.buttonPlus.UseVisualStyleBackColor = true;
             this.buttonPlus.Click += new System.EventHandler(this.buttonPlus_Click);
-            // 
-            // labelTopField
-            // 
-            this.labelTopField.AutoEllipsis = true;
-            this.labelTopField.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelTopField.Location = new System.Drawing.Point(12, 38);
-            this.labelTopField.Name = "labelTopField";
-            this.labelTopField.Size = new System.Drawing.Size(280, 24);
-            this.labelTopField.TabIndex = 14;
-            this.labelTopField.Text = " 0";
-            this.labelTopField.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBoxResult
             // 
@@ -241,7 +229,6 @@
             this.textBoxResult.Size = new System.Drawing.Size(280, 29);
             this.textBoxResult.TabIndex = 15;
             this.textBoxResult.TabStop = false;
-            this.textBoxResult.Text = "0";
             this.textBoxResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // buttonEqually
@@ -259,7 +246,7 @@
             // buttonMultiplication
             // 
             this.buttonMultiplication.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonMultiplication.Location = new System.Drawing.Point(186, 315);
+            this.buttonMultiplication.Location = new System.Drawing.Point(185, 315);
             this.buttonMultiplication.Name = "buttonMultiplication";
             this.buttonMultiplication.Size = new System.Drawing.Size(45, 30);
             this.buttonMultiplication.TabIndex = 17;
@@ -271,7 +258,7 @@
             // buttonDivide
             // 
             this.buttonDivide.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonDivide.Location = new System.Drawing.Point(186, 351);
+            this.buttonDivide.Location = new System.Drawing.Point(185, 279);
             this.buttonDivide.Name = "buttonDivide";
             this.buttonDivide.Size = new System.Drawing.Size(45, 30);
             this.buttonDivide.TabIndex = 18;
@@ -283,7 +270,7 @@
             // buttonMinus
             // 
             this.buttonMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonMinus.Location = new System.Drawing.Point(185, 387);
+            this.buttonMinus.Location = new System.Drawing.Point(185, 351);
             this.buttonMinus.Name = "buttonMinus";
             this.buttonMinus.Size = new System.Drawing.Size(45, 30);
             this.buttonMinus.TabIndex = 19;
@@ -365,7 +352,6 @@
             this.Controls.Add(this.buttonMultiplication);
             this.Controls.Add(this.buttonEqually);
             this.Controls.Add(this.textBoxResult);
-            this.Controls.Add(this.labelTopField);
             this.Controls.Add(this.buttonPlus);
             this.Controls.Add(this.buttonBackspace);
             this.Controls.Add(this.buttonClear);
@@ -406,7 +392,6 @@
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonBackspace;
         private System.Windows.Forms.Button buttonPlus;
-        private System.Windows.Forms.Label labelTopField;
         private System.Windows.Forms.TextBox textBoxResult;
         private System.Windows.Forms.Button buttonEqually;
         private System.Windows.Forms.Button buttonMultiplication;

@@ -21,13 +21,8 @@ namespace Calculator
 
         private void mainForm_Load(object sender, EventArgs e)
         {
-            textBoxEntry.SelectionStart = textBoxEntry.Text.Length;
-            textBoxEntry.SelectionLength = 0;
-            textBoxEntry.Focus();
+            textBoxEntry.SetCursor(textBoxEntry.Text.Length);
         }
-
-        //нужна ли эта переменная?
-        static double answer;
 
         private void buttonZero_Click(object sender, EventArgs e)
         {
@@ -126,10 +121,9 @@ namespace Calculator
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
+            textBoxResult.Clear();
             textBoxEntry.Clear();
-            textBoxEntry.SelectionStart = textBoxEntry.Text.Length;
-            textBoxEntry.SelectionLength = 0;
-            textBoxEntry.Focus();
+            textBoxEntry.SetCursor(textBoxEntry.Text.Length);
         }
 
         private void buttonBackspace_Click(object sender, EventArgs e)
@@ -138,70 +132,55 @@ namespace Calculator
             if (textBoxEntry.SelectionStart > 0)
             {   
                 textBoxEntry.Text = textBoxEntry.Text.Remove(position - 1, 1);
-                textBoxEntry.SelectionStart = position - 1;
-                textBoxEntry.SelectionLength = 0;
-                textBoxEntry.Focus();
+                textBoxEntry.SetCursor(position - 1);
             }
             else
             {
-                textBoxEntry.SelectionStart = position;
-                textBoxEntry.SelectionLength = 0;
-                textBoxEntry.Focus();
+                textBoxEntry.SetCursor(position);
             }
         }
 
         private void buttonEqually_Click(object sender, EventArgs e)
         {
-            /*if (!textBoxEntry.Text.Contains("="))
-            {
-                answer = StringExpressionSolver.GetAnswer(textBoxEntry.Text);
-                textBoxEntry.Text += "=";
-                textBoxResult.Text = answer.ToString();
-            }*/
-            //сделать проверку синтаксиса, в случае ошибок выводить предупреждение
-            //НУЖНО прогнать цикл на поиск скобок и если есть сразу срываться
-            //с цикла и начинать подсчет открывающих и закрывающих скобок 
-            //и использовать метод со скобками, если их количество равно
-            //если нет скобок, то без них
             //НУЖНО добавить - если в поле просто число, то ничего не делать
-
-            //цикл подсчёта открывающих и закрывающих скобок
-            int opBr = 0, clBr = 0;
-            for (int i = 0; i < textBoxEntry.Text.Length; i++)
-            {
-                if (textBoxEntry.Text[i] == '(')
-                    opBr++;
-                if (textBoxEntry.Text[i] == ')')
-                    clBr++;
-            }
 
             int position = textBoxEntry.SelectionStart;
 
-            if (!textBoxEntry.Text.Contains("=") && opBr == clBr && 
-                !CorrectSpellingExpressionChecker.CheckCorrectSpellingExpression(textBoxEntry.Text))
+            if (!textBoxEntry.Text.Contains("=") && 
+                CorrectSpellingExpressionChecker.SpellingIsCorrect(textBoxEntry.Text))
             {
-                //answer = StringExpressionSolver.GetAnswer(textBoxEntry.Text);
-                answer = StringExpressionSolver.GetAnswerWithBrackets(textBoxEntry.Text);
+                string sendingExpression = textBoxEntry.Text;
+                double answer = StringExpressionSolver.GetAnswer(sendingExpression);
                 textBoxEntry.Text += "=";
                 textBoxResult.Text = answer.ToString();
+                textBoxEntry.SetCursor(textBoxEntry.Text.Length);
             }
             else
             {
                 MessageBox.Show("Syntax error!", "Attention!",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                textBoxEntry.SelectionStart = position;
-                textBoxEntry.SelectionLength = 0;
-                textBoxEntry.Focus();
+                textBoxEntry.SetCursor(position);
             }
         }
 
         private void entryFieldAddText(string sent)
         {
             int position = textBoxEntry.SelectionStart;
-            textBoxEntry.Text = textBoxEntry.Text.Insert(position, sent);
-            textBoxEntry.SelectionStart = position + 1;
-            textBoxEntry.SelectionLength = 0;
-            textBoxEntry.Focus();
+            string[] arrayOperators = new string[4] { "-", "+", "*", "/" };
+            if (textBoxResult.Text != "" && textBoxEntry.Text.Contains("=") && 
+                arrayOperators.Contains(sent))
+            {
+                //answer = double.Parse(textBoxResult.Text);
+                textBoxEntry.Clear();
+                textBoxEntry.Text = textBoxResult.Text + sent;
+                textBoxEntry.SetCursor(textBoxEntry.Text.Length);
+                textBoxResult.Clear();
+            }
+            else
+            {
+                textBoxEntry.Text = textBoxEntry.Text.Insert(position, sent);
+                textBoxEntry.SetCursor(position + 1);
+            }
         }
 
         private void MoveCursor (bool toLeft)
@@ -209,33 +188,26 @@ namespace Calculator
             if (toLeft)
             {
                 if (textBoxEntry.SelectionStart != 0)
-                    textBoxEntry.SelectionStart--;
+                    textBoxEntry.SetCursor(textBoxEntry.SelectionStart - 1);
+                else
+                    textBoxEntry.SetCursor(textBoxEntry.SelectionStart);
             }
             else
             {
                 if (textBoxEntry.SelectionStart != textBoxEntry.Text.Length)
-                    textBoxEntry.SelectionStart++;
+                    textBoxEntry.SetCursor(textBoxEntry.SelectionStart + 1);
+                else
+                    textBoxEntry.SetCursor(textBoxEntry.SelectionStart);
             }
-            textBoxEntry.SelectionLength = 0;
-            textBoxEntry.Focus();
         }
-
-        private bool CheckCorrectSpelling ()
+    }
+    public static class ExtensionTextBox
+    {
+        public static void SetCursor (this TextBox textBox, int position)
         {
-            bool check = false;
-            //неравное количество открывающих и закрывающих скобок
-            //начинается или заканчивается на оператор (кроме минуса), запятую
-            //начинается на закрывающую скобку
-            //заканчивается на открывающую скобку
-
-
-            for (int i = 0; i < textBoxEntry.Text.Length - 1; i++)
-            {
-                if (textBoxEntry.Text[i] == '(')
-                    check = true;
-            }
-
-            return check;
+            textBox.SelectionStart = position;
+            textBox.SelectionLength = 0;
+            textBox.Focus();
         }
     }
 }

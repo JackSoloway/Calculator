@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solver", "Solver\Solver.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpellingChecker", "SpellingChecker\SpellingChecker.csproj", "{42A86846-4AD0-4B61-8596-18F315E704AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpellingChecker.NUnitTests", "SpellingChecker.NUnitTests\SpellingChecker.NUnitTests.csproj", "{FC889F19-321C-44AE-BF86-987C1EA0EBC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{42A86846-4AD0-4B61-8596-18F315E704AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42A86846-4AD0-4B61-8596-18F315E704AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42A86846-4AD0-4B61-8596-18F315E704AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC889F19-321C-44AE-BF86-987C1EA0EBC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC889F19-321C-44AE-BF86-987C1EA0EBC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC889F19-321C-44AE-BF86-987C1EA0EBC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC889F19-321C-44AE-BF86-987C1EA0EBC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
